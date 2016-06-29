@@ -8,6 +8,7 @@ import {
   ListView,
   ToastAndroid,
   ToolbarAndroid,
+  DrawerLayoutAndroid,
 } from 'react-native';
 
 var page = 1;
@@ -18,9 +19,10 @@ var REQUEST_URL = 'http://gank.io/api/data/Android/10/' + page;
 var SplashScreen = require('./js/SplashScreen');
 //引入返回图标
 var back_bg = require('./img/back.png');
-
 //存放返回的数据的数组
 var movieData = new Array();
+
+
 class RnDemo extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +47,7 @@ class RnDemo extends Component {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(movieData),
       loaded: true,
+      isOpenLeftDrawable:false,
     });
   }
 
@@ -55,15 +58,22 @@ class RnDemo extends Component {
       return (
         <SplashScreen />
       );
-      // return this.renderLoadingView();
+
     }
+
+    //打开侧滑栏
+    if (this.state.isOpenLeftDrawable) {
+      this.state.isOpenLeftDrawable=false;
+       return this.renderDrawableView();
+    }
+
 
     return (
       <View style={styles.container2}>
 
         <ToolbarAndroid   //标题栏
           navIcon={back_bg}
-          onIconClicked={this.onPenLeftDrawable}
+          onIconClicked={this.onPenLeftDrawable.bind(this)}
           titleColor='#ffffff'  //只支持RGB数值，设置标题的字体颜色
           style={styles.toolbar}
           title="Android资源列表"></ToolbarAndroid>
@@ -85,6 +95,9 @@ class RnDemo extends Component {
 
   //打开侧滑栏
   onPenLeftDrawable(){
+    this.setState({
+      isOpenLeftDrawable:true,
+    });
     ToastAndroid.show('This is a toast with short duration', ToastAndroid.SHORT)
   }
 
@@ -105,15 +118,34 @@ class RnDemo extends Component {
 
   }
 
-  renderLoadingView() {
-    return (
-      <View style={styles.container}>
-        <Text>
-          Loading movies...
-        </Text>
+
+  //返回侧滑栏
+  renderDrawableView() {
+
+    var navigationView = (
+      <View style={{flex: 1, backgroundColor: 'blue'}}>
+        <Text style={{margin: 10,color:'#fff',fontSize: 15, textAlign: 'center'}}>我是导航功能栏标题</Text>
+        <Text style={{marginTop: 10,marginLeft:20,color:'#fff',fontSize: 15, textAlign: 'left'}}>1.功能1</Text>
+        <Text style={{marginTop: 10,marginLeft:20,color:'#fff',fontSize: 15, textAlign: 'left'}}>2.功能2</Text>
       </View>
     );
+
+      return (
+      <DrawerLayoutAndroid
+        drawerWidth={250}
+        drawerPosition={DrawerLayoutAndroid.positions.left}
+        renderNavigationView={() => navigationView}
+        >
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>我是主布局内容</Text>
+              </View>
+            </DrawerLayoutAndroid>
+        );
   }
+
+
+
+
 
   renderMovie(results) {
     return (
