@@ -7,6 +7,7 @@ import {
   Image,
   ListView,
   ToastAndroid,
+  ToolbarAndroid,
 } from 'react-native';
 
 var page = 1;
@@ -15,6 +16,8 @@ var REQUEST_URL = 'http://gank.io/api/data/Android/10/' + page;
 
 //引入欢迎界面
 var SplashScreen = require('./js/SplashScreen');
+//引入返回图标
+var back_bg = require('./img/back.png');
 
 //存放返回的数据的数组
 var movieData = new Array();
@@ -28,12 +31,11 @@ class RnDemo extends Component {
       loaded: false,
     };
   }
+
   //界面开始加载获取数据
   componentDidMount() {
     this.fetchData(REQUEST_URL);
   }
-
-
 
 
   //接受请求成功的回调的结果
@@ -57,17 +59,34 @@ class RnDemo extends Component {
     }
 
     return (
-      <ListView
-        initialListSize={1}
-        onEndReachedThreshold={10}
-        dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
-        onEndReached={this.loadmore.bind(this)}
-        style={styles.listview}
-      />
+      <View style={styles.container2}>
+
+        <ToolbarAndroid   //标题栏
+          navIcon={back_bg}
+          titleColor='#ffffff'  //只支持RGB数值，设置标题的字体颜色
+          style={styles.toolbar}
+          title="Android资源列表"></ToolbarAndroid>
+
+        <ListView
+          initialListSize={1}
+          onEndReachedThreshold={10}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderMovie}
+          onEndReached={this.loadmore.bind(this)}
+          style={styles.listviewstyle}
+        />
+
+      </View>
+
     );
 
   }
+
+  //返回的监听
+  onBack(){
+    // ToastAndroid.show('This is a toast with short duration', ToastAndroid.SHORT)
+  }
+
 
   fetchData(REQUEST_URL) {
     fetch(REQUEST_URL)
@@ -112,9 +131,20 @@ class RnDemo extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  toolbar: {
+    backgroundColor: 'blue',
+    height: 56,
+
+  },
+
+  container2:{
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column', //竖直按顺序从上往下排列
+  },
+
+  container: {
+    flexDirection: 'row', //按顺序从左往右排列
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -134,9 +164,10 @@ const styles = StyleSheet.create({
   year: {
     textAlign: 'center',
   },
-  listView: {
+  listviewstyle: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
+
   },
 });
 AppRegistry.registerComponent('RnDemo', () => RnDemo);

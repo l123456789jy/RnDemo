@@ -5,7 +5,6 @@ import {
   View,
   Image,
   Dimensions,
-  StatusBar,
 } from 'react-native';
 
 
@@ -24,9 +23,7 @@ class SplashScreen extends Component {
   renderSplashView(){
     return (
       <View style={styles.container}>
-        <StatusBar
-          backgroundColor='transparent'
-          translucent/>
+
         <Image
           source={{uri: "http://cartoon.youth.cn/zxzx/201606/W020160624337211450624.jpg"}}
           style={styles.thumbnail}
