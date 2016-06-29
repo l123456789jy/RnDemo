@@ -63,6 +63,7 @@ class RnDemo extends Component {
 
         <ToolbarAndroid   //标题栏
           navIcon={back_bg}
+          onIconClicked={this.onPenLeftDrawable}
           titleColor='#ffffff'  //只支持RGB数值，设置标题的字体颜色
           style={styles.toolbar}
           title="Android资源列表"></ToolbarAndroid>
@@ -82,9 +83,9 @@ class RnDemo extends Component {
 
   }
 
-  //返回的监听
-  onBack(){
-    // ToastAndroid.show('This is a toast with short duration', ToastAndroid.SHORT)
+  //打开侧滑栏
+  onPenLeftDrawable(){
+    ToastAndroid.show('This is a toast with short duration', ToastAndroid.SHORT)
   }
 
 
