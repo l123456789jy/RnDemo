@@ -9,6 +9,7 @@ import {
   ToastAndroid,
   ToolbarAndroid,
   DrawerLayoutAndroid,
+  Dimensions,
 } from 'react-native';
 
 var page = 1;
@@ -47,7 +48,6 @@ class RnDemo extends Component {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(movieData),
       loaded: true,
-      isOpenLeftDrawable:false,
     });
   }
 
@@ -61,47 +61,17 @@ class RnDemo extends Component {
 
     }
 
-    //打开侧滑栏
-    if (this.state.isOpenLeftDrawable) {
-      this.state.isOpenLeftDrawable=false;
-       return this.renderDrawableView();
-    }
-
-
-    return (
-      <View style={styles.container2}>
-
-        <ToolbarAndroid   //标题栏
-          navIcon={back_bg}
-          onIconClicked={this.onPenLeftDrawable.bind(this)}
-          titleColor='#ffffff'  //只支持RGB数值，设置标题的字体颜色
-          style={styles.toolbar}
-          title="Android资源列表"></ToolbarAndroid>
-
-        <ListView
-          initialListSize={1}
-          onEndReachedThreshold={10}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderMovie}
-          onEndReached={this.loadmore.bind(this)}
-          style={styles.listviewstyle}
-        />
-
-      </View>
-
-    );
+    //初始化侧边栏
+    return this.renderDrawableView();
 
   }
 
   //打开侧滑栏
-  onPenLeftDrawable(){
-    this.setState({
-      isOpenLeftDrawable:true,
-    });
-    ToastAndroid.show('This is a toast with short duration', ToastAndroid.SHORT)
+  onPenLeftDrawable() {
+    this.drawer.openDrawer();
   }
 
-
+  //加载网络数据
   fetchData(REQUEST_URL) {
     fetch(REQUEST_URL)
       .then((response) => response.json())
@@ -121,7 +91,7 @@ class RnDemo extends Component {
 
   //返回侧滑栏
   renderDrawableView() {
-
+    //侧滑列表显示的布局
     var navigationView = (
       <View style={{flex: 1, backgroundColor: 'blue'}}>
         <Text style={{margin: 10,color:'#fff',fontSize: 15, textAlign: 'center'}}>我是导航功能栏标题</Text>
@@ -130,23 +100,37 @@ class RnDemo extends Component {
       </View>
     );
 
-      return (
+    return (
       <DrawerLayoutAndroid
-        drawerWidth={250}
+        ref={(drawer) => { this.drawer = drawer; }}
+        drawerWidth={Dimensions.get('window').width / 5 * 3}
         drawerPosition={DrawerLayoutAndroid.positions.left}
+        //这个是加载侧边划出的布局
         renderNavigationView={() => navigationView}
-        >
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>我是主布局内容</Text>
-              </View>
-            </DrawerLayoutAndroid>
-        );
+      >
+
+        <View style={styles.container2}>
+          <ToolbarAndroid   //标题栏
+            navIcon={back_bg}
+            onIconClicked={this.onPenLeftDrawable.bind(this)} //左上角打开侧划栏点击方法
+            titleColor='#ffffff'  //只支持RGB数值，设置标题的字体颜色
+            style={styles.toolbar}
+            title="Android资源列表"></ToolbarAndroid>
+          <ListView
+            initialListSize={1}
+            onEndReachedThreshold={10}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderMovie}
+            onEndReached={this.loadmore.bind(this)}
+            style={styles.listviewstyle}
+          />
+        </View>
+      </DrawerLayoutAndroid>
+    );
   }
 
 
-
-
-
+  //显示干活数据的具体逻辑
   renderMovie(results) {
     return (
       <View style={styles.container}>
@@ -171,7 +155,7 @@ const styles = StyleSheet.create({
 
   },
 
-  container2:{
+  container2: {
     flex: 1,
     flexDirection: 'column', //竖直按顺序从上往下排列
   },
