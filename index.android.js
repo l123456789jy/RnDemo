@@ -19,7 +19,11 @@ var REQUEST_URL = 'http://gank.io/api/data/Android/10/' + page;
 //引入欢迎界面
 var SplashScreen = require('./js/SplashScreen');
 //引入返回图标
-var back_bg = require('./img/back.png');
+var back_bg = require('./img/menu.png');
+//侧滑栏顶部的背景
+var drawable_bg = require('./img/drawerlayout.png');
+
+
 //存放返回的数据的数组
 var movieData = new Array();
 
@@ -93,10 +97,17 @@ class RnDemo extends Component {
   renderDrawableView() {
     //侧滑列表显示的布局
     var navigationView = (
-      <View style={{flex: 1, backgroundColor: 'blue'}}>
-        <Text style={{margin: 10,color:'#fff',fontSize: 15, textAlign: 'center'}}>我是导航功能栏标题</Text>
-        <Text style={{marginTop: 10,marginLeft:20,color:'#fff',fontSize: 15, textAlign: 'left'}}>1.功能1</Text>
-        <Text style={{marginTop: 10,marginLeft:20,color:'#fff',fontSize: 15, textAlign: 'left'}}>2.功能2</Text>
+      <View style={{flex: 1, backgroundColor: '#fcfcfc'}}>
+        <View style={styles.drawableHeard}>
+          <Text style={styles.drawableHeardItem1}>
+            Rea
+          </Text>
+          <Text style={styles.drawableHeardItem1}>
+            让生活更精彩
+          </Text>
+        </View>
+        <Text style={{marginTop: 10,marginLeft:20,color:'black',fontSize: 15, textAlign: 'left'}}>1.功能1</Text>
+        <Text style={{marginTop: 10,marginLeft:20,color:'black',fontSize: 15, textAlign: 'left'}}>2.功能2</Text>
       </View>
     );
 
@@ -149,16 +160,39 @@ class RnDemo extends Component {
 
 const styles = StyleSheet.create({
 
+
+  drawableHeard: {
+    width: Dimensions.get('window').width / 5 * 3,
+    height: 120,
+    justifyContent: 'flex-end',
+    paddingBottom: 10,
+    backgroundColor: '#3e9ce9'
+  },
+
+
+
+  drawableHeardItem1: {
+    fontSize: 20,
+    textAlign: 'left',
+    color: '#fcfcfc',
+    marginLeft: 10,
+  },
+
+
+
   toolbar: {
     backgroundColor: 'blue',
     height: 56,
 
   },
 
+
   container2: {
     flex: 1,
     flexDirection: 'column', //竖直按顺序从上往下排列
   },
+
+
 
   container: {
     flexDirection: 'row', //按顺序从左往右排列
@@ -166,21 +200,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+
+
+
   thumbnail: {
     width: 53,
     height: 81,
   },
+
+
+
   rightContainer: {
     flex: 1,
   },
+
+
   title: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
   },
+
+
+
   year: {
     textAlign: 'center',
   },
+
+
   listviewstyle: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
