@@ -97,14 +97,23 @@ class RnDemo extends Component {
   renderDrawableView() {
     //侧滑列表显示的布局
     var navigationView = (
-      <View style={{flex: 1, backgroundColor: '#fcfcfc'}}>
+      <View style={styles.drawableContainer}>
+
         <View style={styles.drawableHeard}>
+
+          <Image
+            style={styles.drawableHeard}
+            source={drawable_bg}
+          />
+
           <Text style={styles.drawableHeardItem1}>
-            Rea
+            Lazy
           </Text>
+
           <Text style={styles.drawableHeardItem1}>
             让生活更精彩
           </Text>
+
         </View>
         <Text style={{marginTop: 10,marginLeft:20,color:'black',fontSize: 15, textAlign: 'left'}}>1.功能1</Text>
         <Text style={{marginTop: 10,marginLeft:20,color:'black',fontSize: 15, textAlign: 'left'}}>2.功能2</Text>
@@ -161,10 +170,17 @@ class RnDemo extends Component {
 const styles = StyleSheet.create({
 
 
+  drawableContainer: {
+    flex: 1,
+    backgroundColor: '#fcfcfc'
+  },
+
+
+
   drawableHeard: {
     width: Dimensions.get('window').width / 5 * 3,
     height: 120,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end',  //靠左
     paddingBottom: 10,
     backgroundColor: '#3e9ce9'
   },
