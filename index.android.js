@@ -10,6 +10,7 @@ import {
   ToolbarAndroid,
   DrawerLayoutAndroid,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 
 var page = 1;
@@ -115,10 +116,25 @@ class RnDemo extends Component {
           </Text>
 
         </View>
-        <Text style={{marginTop: 10,marginLeft:20,color:'black',fontSize: 15, textAlign: 'left'}}>1.功能1</Text>
-        <Text style={{marginTop: 10,marginLeft:20,color:'black',fontSize: 15, textAlign: 'left'}}>2.功能2</Text>
+
+        <TouchableOpacity onPress={this.onPressDraweraboutMeItem.bind(this)}>
+        <View style={styles.drawableContainer2}>
+          <Text style={styles.drawableHeardItem2}>关于我</Text>
+        </View>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity onPress={this.onPressDrawerCloseItem.bind(this)}>
+        <View style={styles.drawableContainer2}>
+        <Text style={styles.drawableHeardItem2}>关闭</Text>
+        </View>
+        </TouchableOpacity>
       </View>
     );
+
+
+
+
 
     return (
       <DrawerLayoutAndroid
@@ -149,6 +165,19 @@ class RnDemo extends Component {
     );
   }
 
+  //关于我
+  onPressDraweraboutMeItem(){
+    this.drawer.closeDrawer();
+  }
+
+
+  //关闭侧滑栏
+  onPressDrawerCloseItem(){
+    this.drawer.closeDrawer();
+  }
+
+
+
 
   //显示干活数据的具体逻辑
   renderMovie(results) {
@@ -170,6 +199,21 @@ class RnDemo extends Component {
 const styles = StyleSheet.create({
 
 
+  drawableContainer2: {
+    marginTop:5,
+    height: 30,
+    backgroundColor: '#838383'
+  },
+
+
+  drawableHeardItem2: {
+    color: '#fcfcfc',
+    fontSize: 15,
+    marginLeft: 10,
+    marginTop:5,
+  },
+
+
   drawableContainer: {
     flex: 1,
     backgroundColor: '#fcfcfc'
@@ -180,7 +224,7 @@ const styles = StyleSheet.create({
   drawableHeard: {
     width: Dimensions.get('window').width / 5 * 3,
     height: 120,
-    justifyContent: 'flex-end',  //靠左
+    justifyContent: 'flex-end',  //与父组件的底部对齐。
     paddingBottom: 10,
     backgroundColor: '#3e9ce9'
   },
@@ -189,7 +233,7 @@ const styles = StyleSheet.create({
 
   drawableHeardItem1: {
     fontSize: 20,
-    textAlign: 'left',
+    textAlign: 'left',  //靠左
     color: '#fcfcfc',
     marginLeft: 10,
   },
