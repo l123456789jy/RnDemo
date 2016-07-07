@@ -11,6 +11,8 @@ import {
   DrawerLayoutAndroid,
   Dimensions,
   TouchableOpacity,
+  InteractionManager,
+  Navigator,
 } from 'react-native';
 
 var page = 1;
@@ -19,6 +21,10 @@ var REQUEST_URL = 'http://gank.io/api/data/Android/10/' + page;
 
 //引入欢迎界面
 var SplashScreen = require('./js/SplashScreen');
+//引入关于我的界面
+var AboutMe = require('./js/AboutMe');
+
+
 //引入返回图标
 var back_bg = require('./img/menu.png');
 //侧滑栏顶部的背景
@@ -168,6 +174,16 @@ class RnDemo extends Component {
   //关于我
   onPressDraweraboutMeItem(){
     this.drawer.closeDrawer();
+    alert(navigator)
+    //延长在执行回调方法，提高体验
+    InteractionManager.runAfterInteractions(() => {
+      navigator.push({
+        component: AboutMe,
+        title: 'Detail Info',
+        rightButtonTitle: 'Shopping',
+      });
+    });
+
   }
 
 
