@@ -9,7 +9,7 @@ import {
 
 //引入主界面
 var Home = require('./Home');
-
+//主界面
 class RnDemo extends Component {
   constructor (props) {
     super(props)

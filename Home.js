@@ -140,7 +140,6 @@ class Home extends Component {
 
 
 
-
     return (
       <DrawerLayoutAndroid
         ref={(drawer) => { this.drawer = drawer; }}
