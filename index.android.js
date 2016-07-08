@@ -9,7 +9,7 @@ import {
 
 //引入主界面
 var Home = require('./Home');
-//主界面
+//相当于application,Navigatory一定要在应用启动的时候初始化
 class RnDemo extends Component {
   constructor (props) {
     super(props)
