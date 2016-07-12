@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Navigator,
+  Navigator, //存放界面你的栈的容器
 } from 'react-native';
 
 //引入主界面

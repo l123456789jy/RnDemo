@@ -174,7 +174,7 @@ class Home extends Component {
     this.drawer.closeDrawer();
     //延长在执行回调方法，提高体验,打开关于我的界面，并且将我的界面压栈
     InteractionManager.runAfterInteractions(() => {
-      this.props.navigator.push({
+      this.props.navigator.push({   //将关于我界面压栈
         component: AboutMe,
       });
     });
