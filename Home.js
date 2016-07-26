@@ -190,22 +190,25 @@ class Home extends Component {
 
 
 
-  //显示干活数据的具体逻辑
+
+
+
+  //显示渲染返回的数据
   renderMovie(results) {
     return (
       <View style={styles.container}>
-        <Image
-          source={{uri: results.url}}
-          style={styles.thumbnail}
-        />
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{results.desc}</Text>
-          <Text style={styles.year}>{results.createdAt}</Text>
-        </View>
+          <View style={styles.rightContainer}
+          >
+            <Text style={styles.title}>{results.desc}</Text>
+            <Text style={styles.year}>{results.createdAt}</Text>
+          </View>
       </View>
     );
   }
+
 }
+
+
 
 const styles = StyleSheet.create({
 
@@ -266,10 +269,11 @@ const styles = StyleSheet.create({
 
 
   container: {
+
     flexDirection: 'row', //按顺序从左往右排列
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#EFEFEF',
   },
 
 
@@ -282,12 +286,22 @@ const styles = StyleSheet.create({
 
 
   rightContainer: {
+    borderRadius:10,  //圆角
     flex: 1,
+    marginTop:10,
+    marginLeft:10,
+    marginRight:10,
+    backgroundColor:"#FFFFFF"
   },
 
 
   title: {
-    fontSize: 20,
+    marginTop:3,
+    marginLeft:3,
+    marginRight:3,
+    fontWeight:"bold",
+    textShadowColor:'#F5FEED',
+    fontSize: 15,
     marginBottom: 8,
     textAlign: 'center',
   },
